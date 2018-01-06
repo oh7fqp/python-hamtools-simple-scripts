@@ -23,11 +23,9 @@ dicty = {
     80: 'R'
     }
 mh2 = shapefile.Writer(shapefile.POLYGON)
-mh2.field('CentroidX','C',12)
-mh2.field('CentroidY','C',12)
+mh2.field('Locator','C',12)
 mh4 = shapefile.Writer(shapefile.POLYGON)
-mh4.field('CentroidX','C',12)
-mh4.field('CentroidY','C',12)
+mh4.field('Locator','C',12)
 stepy = 10
 stepx = 20
 for y in range(0,180,stepy):
@@ -36,7 +34,7 @@ for y in range(0,180,stepy):
         py = -90+y
         locator = dicty[px/2]+dicty[py]
         mh2.poly(parts=[[[px,py],[px,py+stepy],[px+stepx,py+stepy],[px+stepx,py],[px,py]]])
-        mh2.record(locator, locator)
+        mh2.record(locator)
 
 mh2.save(output_grid_2)
 stepy = 1
@@ -47,7 +45,7 @@ for y in range(0,180,stepy):
         py = -90+y
         locator = dicty[int(px/20)*10]+dicty[int(py/10)*10]+str(x/2)[-1:]+str(y)[-1:]
         mh4.poly(parts=[[[px,py],[px,py+stepy],[px+stepx,py+stepy],[px+stepx,py],[px,py]]])
-        mh4.record(locator, locator)
+        mh4.record(locator)
         print(px)
 
 mh4.save(output_grid_4)
